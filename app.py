@@ -19,6 +19,8 @@ def index(img_name):
     try:
         if last_image == img_name:
             img_name2 = "zzz.jpg"
+        elif img_name == "cane.jpg":
+             img_name2 = "forziere.jpg"
         else:
             img_name2 = img_name
         response = make_response(send_file(img_name2.lower()))
