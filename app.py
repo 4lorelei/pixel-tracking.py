@@ -21,9 +21,9 @@ def index(img_name):
             img_name2 = "zzz.jpg"
         else:
             img_name2 = img_name
-        response = make_response(send_file(img_name2))
+        response = make_response(send_file(img_name2.lower()))
         response.headers.set('Content-Type', 'image/jpeg')
-        response.set_cookie('last_image', img_name2)
+        response.set_cookie('last_image', img_name2.lower())
         return response
     except FileNotFoundError:
         return 'Image not found', 404
