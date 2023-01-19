@@ -27,7 +27,7 @@ def index(img_name):
             img_name2 = "pixel.jpg"
             img_set = "cane.jpg"
         else:
-            img_name2 = img_name
+            img_name2 = img_name.lower()
             img_set = img_name2
             
         response = make_response(send_file(img_name2.lower()))
