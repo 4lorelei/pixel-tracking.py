@@ -1,7 +1,12 @@
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, make_response
 import datetime
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return 'Immagini disponibili: frog.jpg, orso.jpg, pixel.jpg'
+
 
 @app.route('/<string:img_name>')
 def index(img_name):
@@ -13,10 +18,13 @@ def index(img_name):
     with open('user_agents.txt', 'a') as f:
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
-        img_name2 = "orso.JPG"
+        if last_image.upper() == img_name.upper():
+            img_name2 = "zzz.jpg"
+        else:
+            img_name2 = img_name
         response = make_response(send_file(img_name2))
         response.headers.set('Content-Type', 'image/jpeg')
-        response.set_cookie('last_image', img_name)
+        response.set_cookie('last_image', img_name2)
         return response
     except FileNotFoundError:
         return 'Image not found', 404
