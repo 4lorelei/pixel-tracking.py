@@ -14,7 +14,7 @@ def index(img_name):
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
         if last_image == img_name:
-            img_name = "orso.JPG"
+            img_name2 = "orso.JPG"
         else:
             img_name2 = img_name
         response = make_response(send_file(img_name2))
