@@ -7,7 +7,6 @@ app = Flask(__name__)
 def home():
     return 'Immagini disponibili: frog.jpg, orso.jpg, pixel.jpg'
 
-
 @app.route('/<string:img_name>')
 def index(img_name):
     last_image = request.cookies.get('last_image')
@@ -18,7 +17,7 @@ def index(img_name):
     with open('user_agents.txt', 'a') as f:
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
-        if last_image.upper() == img_name.upper():
+        if last_image == img_name:
             img_name2 = "zzz.jpg"
         else:
             img_name2 = img_name
