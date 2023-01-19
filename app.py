@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route('/<string:img_name>')
 def index(img_name):
+    last_image = request.cookies.get('last_image')
     user_agent = request.headers.get('User-Agent')
     timestamp = str(datetime.datetime.now())
     ip = str(request.remote_addr)
@@ -12,7 +13,14 @@ def index(img_name):
     with open('user_agents.txt', 'a') as f:
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
-        return send_file(img_name, mimetype='image/jpg')
+        if last_image == img_name:
+            img_name = "orso.JPG"
+        else:
+            img_name2 = img_name
+        response = make_response(send_file(img_name2))
+        response.headers.set('Content-Type', 'image/jpeg')
+        response.set_cookie('last_image', img_name)
+        return response
     except FileNotFoundError:
         return 'Image not found', 404
 
