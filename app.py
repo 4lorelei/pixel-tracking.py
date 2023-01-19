@@ -17,15 +17,22 @@ def index(img_name):
     with open('user_agents.txt', 'a') as f:
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
-        if last_image == img_name:
+        if last_image == img_name.lower():
             img_name2 = "zzz.jpg"
+            img_set = img_name2
+        elif last_image == "cane.jpg":
+            img_name2 = "forziere.jpg"
+            img_set = img_name2
         elif img_name == "cane.jpg":
-             img_name2 = "forziere.jpg"
+            img_name2 = "pixel.jpg"
+            img_set = "cane.jpg"
         else:
             img_name2 = img_name
+            img_set = img_name2
+            
         response = make_response(send_file(img_name2.lower()))
         response.headers.set('Content-Type', 'image/jpeg')
-        response.set_cookie('last_image', img_name2.lower())
+        response.set_cookie('last_image', img_set.lower())
         return response
     except FileNotFoundError:
         return 'Image not found', 404
