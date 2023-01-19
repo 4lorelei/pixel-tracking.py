@@ -13,10 +13,7 @@ def index(img_name):
     with open('user_agents.txt', 'a') as f:
         f.write(user_agent + ' - ' + timestamp + ' - ' + ip + '\n')
     try:
-        if last_image == img_name:
-            img_name2 = "orso.JPG"
-        else:
-            img_name2 = img_name
+        img_name2 = "orso.JPG"
         response = make_response(send_file(img_name2))
         response.headers.set('Content-Type', 'image/jpeg')
         response.set_cookie('last_image', img_name)
